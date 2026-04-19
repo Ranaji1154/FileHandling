@@ -1,0 +1,81 @@
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class Frame extends JFrame implements KeyListener {
+    JPanel mainPanel;
+    JPanel subPanel1;
+    JPanel subPanel2;
+    JLabel main_l;
+    JTextArea main_a;
+
+    Frame() {
+        // Initialize fields
+        main_l = new JLabel("Main Label");
+        main_a = new JTextArea("Main Area");
+
+        // Main panel
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(2, 1));
+        TitledBorder main_t = new TitledBorder("Main Panel");
+        mainPanel.setBorder(main_t);
+
+        // Sub Panel 1 with GridBagLayout
+        subPanel1 = new JPanel(new GridBagLayout());
+        TitledBorder sub_t1 = new TitledBorder("Sub Panel 1");
+        subPanel1.setBorder(sub_t1);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        subPanel1.add(main_l, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        subPanel1.add(main_a, gbc);
+
+        // Sub Panel 2
+        subPanel2 = new JPanel(new GridLayout());
+        TitledBorder sub_t2 = new TitledBorder("Sub Panel 2");
+        subPanel2.setBorder(sub_t2);
+
+        // Add subpanels to main panel
+        mainPanel.add(subPanel1);
+        mainPanel.add(subPanel2);
+
+        // Add main panel to frame
+        add(mainPanel);
+
+        setTitle("My Frame");
+        setSize(500, 500);
+        addKeyListener(this);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public static void main(String[] args) {
+        Frame f = new Frame();
+        f.setVisible(true);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        System.out.println("Key Typed at: " + e.getKeyChar());
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("Key Pressed at: " + e.getKeyChar());
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println("Key Released at: " + e.getKeyChar());
+    }
+}

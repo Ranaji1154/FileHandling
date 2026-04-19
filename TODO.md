@@ -21,3 +21,9 @@
 - Repo pushed successfully.
 
 Track progress by marking [DONE] after each step.
+
+
+git status
+git add main.java
+git commit -m "Update main.java with new changes"
+git push origin main
