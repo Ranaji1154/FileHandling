@@ -7,12 +7,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileWriter;
 
 
 
@@ -20,12 +25,14 @@ public class Frame extends JFrame implements KeyListener {
     JPanel mainPanel;
     JPanel subPanel1;
     JPanel subPanel2;
-    
+   
     JTextArea text_a;
     JTextArea note_a;
     JButton button;
+    File file;
     
     Frame(){
+        file= new File(".Main.txt");
         
         text_a = new JTextArea(1,15);
         button = new JButton("bhej do");
@@ -109,6 +116,7 @@ public class Frame extends JFrame implements KeyListener {
         button.addActionListener(e ->{
             String note = text_a.getText().trim();
             if(!note.isEmpty()){
+                write(note);
                 note_a.append(note +"\n");
                 text_a.setText("");
                 text_a.setFocusable(true);
@@ -138,7 +146,9 @@ public class Frame extends JFrame implements KeyListener {
         // TODO Auto-generated method stub
         if(e.getKeyCode()==KeyEvent.VK_SHIFT){
             String note = text_a.getText().trim();
+            
             if(!note.isEmpty()){
+                write(note);
                 note_a.append(note +"\n");
                 text_a.setText("");
                 text_a.setFocusable(true);
@@ -153,4 +163,16 @@ public class Frame extends JFrame implements KeyListener {
         
         // System.out.println("Key Released at:"+e.getKeyChar());
     }
+    public void write(String note){
+        try {
+            FileWriter fw = new FileWriter(file, true); // true for append mode
+            fw.write(note + "\n");
+            fw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+        
+
+    
 }
